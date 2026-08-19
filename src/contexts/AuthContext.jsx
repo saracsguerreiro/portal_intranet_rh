@@ -10,6 +10,13 @@ export function AuthProvider({ children }) {
   });
 
   const login = useCallback((email, password) => {
+    // Protótipo: sem credenciais → entra como Admin RH
+    if (!email && !password) {
+      const userData = USERS[0];
+      setUser(userData);
+      sessionStorage.setItem('tis_user', JSON.stringify(userData));
+      return { success: true };
+    }
     const cred = DEMO_CREDENTIALS[email];
     if (!cred || cred.password !== password) {
       return { success: false, error: 'Email ou password incorretos.' };

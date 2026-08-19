@@ -62,10 +62,14 @@ export default function Login() {
             </div>
           )}
 
+          <div className="bg-tis-50 border border-tis-200 rounded-xl px-4 py-3 mb-4 text-sm text-tis-700 text-center">
+            🚀 <strong>Modo Protótipo</strong> — clique em <em>Entrar</em> sem preencher nada
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email corporativo
+                Email corporativo <span className="text-gray-400 font-normal">(opcional)</span>
               </label>
               <div className="relative">
                 <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -74,7 +78,6 @@ export default function Login() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="nome@tis.co.ao"
-                  required
                   className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tis-500 focus:border-transparent transition-all"
                 />
               </div>
@@ -82,7 +85,7 @@ export default function Login() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
+                Password <span className="text-gray-400 font-normal">(opcional)</span>
               </label>
               <div className="relative">
                 <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -91,7 +94,6 @@ export default function Login() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  required
                   className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tis-500 focus:border-transparent transition-all"
                 />
                 <button
@@ -109,7 +111,7 @@ export default function Login() {
               disabled={loading}
               className="w-full bg-tis-700 hover:bg-tis-800 disabled:bg-tis-400 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
             >
-              {loading ? 'A iniciar sessão…' : 'Iniciar Sessão'}
+              {loading ? 'A entrar…' : 'Entrar →'}
             </button>
           </form>
 
