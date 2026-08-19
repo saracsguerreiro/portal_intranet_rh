@@ -1,5 +1,6 @@
 import { useAuth } from '../contexts/AuthContext';
 import { Mail, Phone, Briefcase, Building2, Calendar, Award } from 'lucide-react';
+import PageHeader from '../components/PageHeader';
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('pt-PT', {
@@ -24,7 +25,9 @@ export default function Profile() {
   const tenure = yearsOf(user?.hireDate);
 
   return (
-    <div className="max-w-3xl mx-auto space-y-5">
+    <div>
+      <PageHeader tag="Portal TIS" title="O Meu Perfil" description="Informação pessoal e profissional" />
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-5">
       {/* Header card */}
       <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
         <div className="bg-gradient-to-r from-tis-700 to-tis-500 h-28" />
@@ -102,6 +105,7 @@ export default function Profile() {
           As preferências de notificação serão configuráveis na próxima versão do portal.
         </p>
       </div>
+    </div>
     </div>
   );
 }

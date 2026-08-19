@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, User, Search, Filter } from 'lucide-react';
+import { ArrowLeft, Clock, User, Search } from 'lucide-react';
 import { NEWS } from '../data/mockData';
+import PageHeader from '../components/PageHeader';
 
 const CATEGORY_COLORS = {
   RH: 'bg-purple-100 text-purple-700',
@@ -102,7 +103,9 @@ export default function News() {
   });
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div>
+      <PageHeader tag="Portal TIS" title="Notícias" description="Fique a par de tudo o que acontece na TIS" />
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
       {/* Search and filter */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
@@ -206,6 +209,7 @@ export default function News() {
             })}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

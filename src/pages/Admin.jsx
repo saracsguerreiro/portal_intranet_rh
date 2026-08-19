@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import {
-  Newspaper, Calendar, FolderOpen, Users,
-  Plus, Trash2, Edit3, Check, X, Shield,
+  Newspaper, Calendar, Users,
+  Plus, Trash2, Edit3, Check, Shield,
 } from 'lucide-react';
 import { NEWS, EVENTS, USERS } from '../data/mockData';
+import PageHeader from '../components/PageHeader';
 import { useAuth } from '../contexts/AuthContext';
 
 const TABS = [
@@ -70,7 +71,9 @@ export default function Admin() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-5">
+    <div>
+      <PageHeader tag="Administração" title="Painel de Administração" description="Gira notícias, eventos e utilizadores do portal" />
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-5">
       {!isAdmin && (
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex items-center gap-3 text-amber-800 text-sm">
           <Shield size={18} />
@@ -349,6 +352,7 @@ export default function Admin() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }

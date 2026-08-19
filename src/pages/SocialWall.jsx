@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Heart, Award, Cake, Briefcase, Send } from 'lucide-react';
 import { KUDOS, BIRTHDAYS, VACANCIES } from '../data/mockData';
 import { useAuth } from '../contexts/AuthContext';
+import PageHeader from '../components/PageHeader';
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('pt-PT', {
@@ -46,7 +47,9 @@ export default function SocialWall() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div>
+      <PageHeader tag="Portal TIS" title="Mural Social" description="Reconheça colegas, celebre aniversários e descubra vagas internas" />
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Kudos */}
         <div className="lg:col-span-2 space-y-4">
@@ -200,6 +203,7 @@ export default function SocialWall() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

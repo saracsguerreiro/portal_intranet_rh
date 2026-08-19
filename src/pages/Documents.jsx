@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { FileText, File, Search, Download, ChevronRight, FolderOpen } from 'lucide-react';
+import { FileText, Search, Download, FolderOpen } from 'lucide-react';
 import { DOCUMENTS } from '../data/mockData';
+import PageHeader from '../components/PageHeader';
 
 const CATEGORIES = ['Todos', 'Políticas', 'Formulários', 'Benefícios'];
 
@@ -39,7 +40,9 @@ export default function Documents() {
   }, {});
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div>
+      <PageHeader tag="Portal TIS" title="Documentos e Políticas RH" description="Regulamentos, formulários e benefícios numa só plataforma" />
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
       {/* Search + filter */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
@@ -100,6 +103,7 @@ export default function Documents() {
           {filtered.map(doc => <DocCard key={doc.id} doc={doc} />)}
         </div>
       )}
+    </div>
     </div>
   );
 }

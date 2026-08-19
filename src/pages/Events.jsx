@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { MapPin, Clock, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
+import { MapPin, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 import { EVENTS } from '../data/mockData';
+import PageHeader from '../components/PageHeader';
 
 const CATEGORY_COLORS = {
   'Bem-Estar': 'bg-green-100 text-green-700 border-green-200',
@@ -57,7 +58,9 @@ export default function Events() {
   });
 
   return (
-    <div className="max-w-6xl mx-auto space-y-6">
+    <div>
+      <PageHeader tag="Portal TIS" title="Agenda de Eventos" description="Todos os eventos, formações e iniciativas da empresa" />
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
       {/* View toggle */}
       <div className="flex gap-2">
         {[
@@ -204,6 +207,7 @@ export default function Events() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }
