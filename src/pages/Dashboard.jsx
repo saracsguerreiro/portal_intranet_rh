@@ -77,33 +77,34 @@ export default function Dashboard() {
         {/* Mural GSAP (substitui people-mosaic.png estático) */}
         <MuralFotografico className="absolute inset-0 w-full h-full" />
 
-        {/* Overlay — gradient mesh roxo/magenta → azul (replicar imagem de referência) */}
+        {/* Gradient da imagem de referência, com opacidade, sobre o mural */}
         <div
           className="absolute inset-0"
           style={{
+            opacity: 0.88,
             background: [
-              'radial-gradient(ellipse at 12% 18%, rgba(212,0,255,0.82) 0%, transparent 55%)',
-              'radial-gradient(ellipse at 88% 6%,  rgba(30,120,255,0.80) 0%, transparent 52%)',
-              'radial-gradient(ellipse at 8%  88%, rgba(204,0,255,0.75) 0%, transparent 50%)',
-              'radial-gradient(ellipse at 82% 92%, rgba(107,0,153,0.80) 0%, transparent 55%)',
+              'radial-gradient(ellipse at 15% 20%, #d400ff 0%, transparent 58%)',
+              'radial-gradient(ellipse at 88% 6%,  #1e7fff 0%, transparent 54%)',
+              'radial-gradient(ellipse at 8%  88%, #cc00ff 0%, transparent 52%)',
+              'radial-gradient(ellipse at 82% 92%, #6b0099 0%, transparent 56%)',
               '#9900cc',
             ].join(', '),
           }}
         />
 
-        {/* Blob decorativo esquerdo — tamanho reduzido */}
+        {/* Blob decorativo esquerdo — só o blob, mais pequeno */}
         <img
           src={`${import.meta.env.BASE_URL}blob.png`}
           alt="" aria-hidden="true"
-          className="absolute -left-6 bottom-0 h-[72%] w-auto pointer-events-none select-none"
+          className="absolute -left-6 bottom-0 h-[55%] w-auto pointer-events-none select-none"
         />
 
         {/* Conteúdo do hero */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16
                         flex flex-col lg:flex-row items-center gap-10 lg:gap-20 py-14 lg:py-24">
 
-          {/* Logo "Juntos somos TIS" — tamanho reduzido ~25% */}
-          <div className="flex-shrink-0 w-40 sm:w-48 xl:w-56 drop-shadow-2xl">
+          {/* Logo "Juntos somos TIS" — tamanho original restaurado */}
+          <div className="flex-shrink-0 w-52 sm:w-64 xl:w-80 drop-shadow-2xl">
             <img
               src={`${import.meta.env.BASE_URL}logo-juntos.png`}
               alt="Juntos somos TIS"
