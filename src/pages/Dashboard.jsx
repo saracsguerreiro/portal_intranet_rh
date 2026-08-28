@@ -71,39 +71,42 @@ export default function Dashboard() {
   return (
     <div className="overflow-x-hidden">
 
-      {/* ── HERO — Mural fotográfico animado + identidade ── */}
-      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
+      {/* ── HERO — ocupa ecrã inteiro, por baixo da navbar flutuante ── */}
+      <section className="relative min-h-screen -mt-20 flex items-center overflow-hidden">
 
-        {/* Mural GSAP (substitui people-mosaic.png estático) */}
+        {/* Mural GSAP */}
         <MuralFotografico className="absolute inset-0 w-full h-full" />
 
-        {/* Gradient da imagem de referência, com opacidade, sobre o mural */}
+        {/* Gradient 50% magenta / 50% azul, com opacidade sobre o mural */}
         <div
           className="absolute inset-0"
           style={{
             opacity: 0.88,
             background: [
-              'radial-gradient(ellipse at 15% 20%, #d400ff 0%, transparent 58%)',
-              'radial-gradient(ellipse at 88% 6%,  #1e7fff 0%, transparent 54%)',
-              'radial-gradient(ellipse at 8%  88%, #cc00ff 0%, transparent 52%)',
-              'radial-gradient(ellipse at 82% 92%, #6b0099 0%, transparent 56%)',
-              '#9900cc',
+              /* magenta — lado esquerdo */
+              'radial-gradient(ellipse at 0%   40%, #e000ff 0%, transparent 52%)',
+              'radial-gradient(ellipse at 10%  80%, #cc00ee 0%, transparent 48%)',
+              /* azul — lado direito */
+              'radial-gradient(ellipse at 100% 20%, #1a6fff 0%, transparent 52%)',
+              'radial-gradient(ellipse at 90%  75%, #2255dd 0%, transparent 48%)',
+              /* base linear: esquerda roxa → direita azul */
+              'linear-gradient(to right, #aa00cc 0%, #1e55ff 100%)',
             ].join(', '),
           }}
         />
 
-        {/* Blob decorativo esquerdo — só o blob, mais pequeno */}
+        {/* Blob decorativo — mais pequeno */}
         <img
           src={`${import.meta.env.BASE_URL}blob.png`}
           alt="" aria-hidden="true"
           className="absolute -left-6 bottom-0 h-[55%] w-auto pointer-events-none select-none"
         />
 
-        {/* Conteúdo do hero */}
+        {/* Conteúdo */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16
-                        flex flex-col lg:flex-row items-center gap-10 lg:gap-20 py-14 lg:py-24">
+                        flex flex-col lg:flex-row items-center gap-10 lg:gap-20 py-14 lg:py-24 pt-28 lg:pt-24">
 
-          {/* Logo "Juntos somos TIS" — tamanho original restaurado */}
+          {/* Logo "Juntos somos TIS" */}
           <div className="flex-shrink-0 w-52 sm:w-64 xl:w-80 drop-shadow-2xl">
             <img
               src={`${import.meta.env.BASE_URL}logo-juntos.png`}
@@ -112,18 +115,18 @@ export default function Dashboard() {
             />
           </div>
 
-          {/* Texto institucional — alinhado à direita */}
+          {/* Texto — aumentado */}
           <div className="flex-1 text-white text-center lg:text-right">
-            <p className="text-lg sm:text-xl xl:text-2xl font-light text-white/80 mb-2 tracking-wide">
+            <p className="text-xl sm:text-2xl xl:text-3xl font-light text-white/80 mb-3 tracking-wide">
               Portal da Direcção de
             </p>
-            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black text-white leading-tight mb-7 uppercase tracking-tight">
+            <h1 className="text-5xl sm:text-6xl xl:text-7xl font-black text-white leading-tight mb-8 uppercase tracking-tight">
               Cultura &amp; Pessoas
             </h1>
-            <p className="text-base sm:text-xl text-white/75 mb-1">
+            <p className="text-lg sm:text-2xl text-white/80 mb-2">
               Informação. Respostas. Recursos.
             </p>
-            <p className="text-base sm:text-xl font-bold text-white">
+            <p className="text-lg sm:text-2xl font-bold text-white">
               Tudo num só lugar.
             </p>
           </div>
