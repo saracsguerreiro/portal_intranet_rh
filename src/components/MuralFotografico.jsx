@@ -3,9 +3,8 @@ import gsap from 'gsap';
 
 const COLS = 12;
 const ROWS = 8;
-const TOTAL = COLS * ROWS; // 96 células
+const TOTAL = COLS * ROWS;
 
-// Baralhar array (Fisher-Yates)
 function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -15,14 +14,12 @@ function shuffle(arr) {
   return a;
 }
 
-// Pool de 70 retratos (pravatar.cc) — substituir por fotos reais em produção
 const POOL = shuffle(Array.from({ length: 70 }, (_, i) => i + 1));
 
 export default function MuralFotografico({ className = '', style = {} }) {
   const containerRef = useRef(null);
   const gsapCtx = useRef(null);
 
-  // Cada célula tem uma imagem atribuída (cicla pelo pool se TOTAL > pool)
   const cells = useMemo(
     () =>
       Array.from({ length: TOTAL }, (_, i) => ({
@@ -38,25 +35,27 @@ export default function MuralFotografico({ className = '', style = {} }) {
 
     let phase2Active = false;
     let pendingCall = null;
+    const animating = new Set();
 
     gsapCtx.current = gsap.context(() => {
       const items = Array.from(container.querySelectorAll('[data-cell]'));
 
-      // ── Estado inicial: invisível, pequeno, desfocado ──────────────────
+      // ── Estado inicial ──────────────────────────────────────────────────
       gsap.set(items, {
         opacity: 0,
         scale: () => gsap.utils.random(0.3, 0.5),
         filter: 'blur(14px)',
         transformOrigin: 'center center',
-        willChange: 'transform, opacity, filter',
       });
 
-      // ── FASE 1: Montagem do mural (~8 segundos no total) ───────────────
-      // Ordem aleatória (from:'random') para efeito orgânico, não mecânico
+      // ── FASE 1: Montagem (~8 s) ─────────────────────────────────────────
       const assemblyTl = gsap.timeline({
         onComplete() {
           phase2Active = true;
-          scheduleNext();
+          // Arrancar 4 threads com desfasagem inicial para criar sobreposição
+          for (let t = 0; t < 4; t++) {
+            gsap.delayedCall(t * 0.9, launchNext);
+          }
         },
       });
 
@@ -66,39 +65,35 @@ export default function MuralFotografico({ className = '', style = {} }) {
         filter: 'blur(0px)',
         duration: () => gsap.utils.random(0.8, 1.2),
         ease: 'power2.out',
-        stagger: {
-          each: 0.085,   // 96 × 0.085 ≈ 8.2 s de spread total
-          from: 'random',
-        },
+        stagger: { each: 0.085, from: 'random' },
       });
 
-      // ── FASE 2: Loop contínuo suave ────────────────────────────────────
-      function scheduleNext() {
-        if (!phase2Active) return;
-        // Próximo ciclo começa daqui a 2-4 segundos
-        pendingCall = gsap.delayedCall(gsap.utils.random(2, 4), runCycle);
-      }
-
-      function runCycle() {
+      // ── FASE 2: Loop contínuo com sobreposições ─────────────────────────
+      // Lança 1-2 células a cada 0.5-1.5 s → sempre há movimento no ecrã
+      function launchNext() {
         if (!phase2Active) return;
 
-        const count = Math.round(gsap.utils.random(3, 6));
-        const selected = shuffle([...items]).slice(0, count);
+        const available = items.filter(cell => !animating.has(cell));
+        if (available.length > 0) {
+          const count = Math.min(1 + Math.floor(Math.random() * 2), available.length);
+          const picked = shuffle([...available]).slice(0, count);
 
-        const cycleTl = gsap.timeline({ onComplete: scheduleNext });
+          picked.forEach(cell => {
+            animating.add(cell);
+            const fadeOut    = gsap.utils.random(2.0, 4.0);
+            const hold       = gsap.utils.random(0.2, 0.6);
+            const fadeIn     = gsap.utils.random(2.0, 4.0);
+            const minOpacity = gsap.utils.random(0.04, 0.13);
 
-        selected.forEach((cell, i) => {
-          // Cada célula começa a sua animação num momento ligeiramente diferente
-          const t0        = i * gsap.utils.random(0.2, 0.45);
-          const fadeOut   = gsap.utils.random(1.2, 1.8);
-          const holdPause = gsap.utils.random(0.2, 0.5);
-          const fadeIn    = gsap.utils.random(1.2, 1.8);
-          const minOpacity = gsap.utils.random(0.04, 0.12);
+            gsap.timeline()
+              .to(cell, { opacity: minOpacity, duration: fadeOut, ease: 'sine.inOut' })
+              .to(cell, { opacity: 1, duration: fadeIn, ease: 'sine.inOut', delay: hold })
+              .call(() => { animating.delete(cell); });
+          });
+        }
 
-          cycleTl
-            .to(cell, { opacity: minOpacity, duration: fadeOut,  ease: 'sine.inOut' }, t0)
-            .to(cell, { opacity: 1,          duration: fadeIn,   ease: 'sine.inOut' }, t0 + fadeOut + holdPause);
-        });
+        // Próximo lançamento em 0.5-1.5 s — garante movimento contínuo
+        pendingCall = gsap.delayedCall(gsap.utils.random(0.5, 1.5), launchNext);
       }
     }, container);
 

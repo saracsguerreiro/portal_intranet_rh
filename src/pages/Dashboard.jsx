@@ -77,25 +77,33 @@ export default function Dashboard() {
         {/* Mural GSAP (substitui people-mosaic.png estático) */}
         <MuralFotografico className="absolute inset-0 w-full h-full" />
 
-        {/* Overlay gradiente roxo → azul, deixa as fotos visíveis ao fundo */}
+        {/* Overlay — gradient mesh roxo/magenta → azul (replicar imagem de referência) */}
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(118deg, rgba(88,28,220,0.88) 0%, rgba(67,56,202,0.84) 42%, rgba(37,99,235,0.80) 100%)' }}
+          style={{
+            background: [
+              'radial-gradient(ellipse at 12% 18%, rgba(212,0,255,0.82) 0%, transparent 55%)',
+              'radial-gradient(ellipse at 88% 6%,  rgba(30,120,255,0.80) 0%, transparent 52%)',
+              'radial-gradient(ellipse at 8%  88%, rgba(204,0,255,0.75) 0%, transparent 50%)',
+              'radial-gradient(ellipse at 82% 92%, rgba(107,0,153,0.80) 0%, transparent 55%)',
+              '#9900cc',
+            ].join(', '),
+          }}
         />
 
-        {/* Blob decorativo esquerdo */}
+        {/* Blob decorativo esquerdo — tamanho reduzido */}
         <img
           src={`${import.meta.env.BASE_URL}blob.png`}
           alt="" aria-hidden="true"
-          className="absolute -left-10 bottom-0 h-[92%] w-auto pointer-events-none select-none"
+          className="absolute -left-6 bottom-0 h-[72%] w-auto pointer-events-none select-none"
         />
 
         {/* Conteúdo do hero */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16
                         flex flex-col lg:flex-row items-center gap-10 lg:gap-20 py-14 lg:py-24">
 
-          {/* Logo "Juntos somos TIS" */}
-          <div className="flex-shrink-0 w-52 sm:w-64 xl:w-80 drop-shadow-2xl">
+          {/* Logo "Juntos somos TIS" — tamanho reduzido ~25% */}
+          <div className="flex-shrink-0 w-40 sm:w-48 xl:w-56 drop-shadow-2xl">
             <img
               src={`${import.meta.env.BASE_URL}logo-juntos.png`}
               alt="Juntos somos TIS"
