@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import MuralFotografico from '../components/MuralFotografico';
 import { ChevronRight, Clock, MapPin, Award, ArrowRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { NEWS, EVENTS, BIRTHDAYS, KUDOS } from '../data/mockData';
@@ -70,41 +71,53 @@ export default function Dashboard() {
   return (
     <div className="overflow-x-hidden">
 
-      {/* ── HERO ── */}
-      <section className="relative bg-gradient-to-br from-tis-950 via-tis-900 to-tis-700 min-h-[420px] flex items-center">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-20 -right-20 w-96 h-96 bg-tis-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-1/4 w-64 h-64 bg-tis-400/10 rounded-full blur-2xl" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
-          <AnimBlock cls="scroll-fade">
-            <p className="text-tis-300 text-lg mb-2">{greeting},</p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3">
-              {user?.name} 👋
-            </h1>
-            <p className="text-tis-200 text-lg mb-6">{user?.position} · {user?.department}</p>
-            <p className="text-tis-300 text-sm">
-              📅 {new Date().toLocaleDateString('pt-PT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-            </p>
-          </AnimBlock>
+      {/* ── HERO — Mural fotográfico animado + identidade ── */}
+      <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
 
-          {/* Stats bar */}
-          <AnimBlock cls="scroll-fade delay-200">
-            <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {[
-                { label: 'Notícias',      value: NEWS.length,    emoji: '📰' },
-                { label: 'Eventos',       value: EVENTS.length,  emoji: '📅' },
-                { label: 'Documentos',    value: 8,              emoji: '📁' },
-                { label: 'Colaboradores', value: 127,            emoji: '👥' },
-              ].map(({ label, value, emoji }) => (
-                <div key={label} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl px-5 py-4 text-center">
-                  <div className="text-2xl mb-1">{emoji}</div>
-                  <p className="text-2xl font-bold text-white">{value}</p>
-                  <p className="text-tis-300 text-xs mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </AnimBlock>
+        {/* Mural GSAP (substitui people-mosaic.png estático) */}
+        <MuralFotografico className="absolute inset-0 w-full h-full" />
+
+        {/* Overlay gradiente roxo → azul, deixa as fotos visíveis ao fundo */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(118deg, rgba(88,28,220,0.88) 0%, rgba(67,56,202,0.84) 42%, rgba(37,99,235,0.80) 100%)' }}
+        />
+
+        {/* Blob decorativo esquerdo */}
+        <img
+          src={`${import.meta.env.BASE_URL}blob.png`}
+          alt="" aria-hidden="true"
+          className="absolute -left-10 bottom-0 h-[92%] w-auto pointer-events-none select-none"
+        />
+
+        {/* Conteúdo do hero */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16
+                        flex flex-col lg:flex-row items-center gap-10 lg:gap-20 py-14 lg:py-24">
+
+          {/* Logo "Juntos somos TIS" */}
+          <div className="flex-shrink-0 w-52 sm:w-64 xl:w-80 drop-shadow-2xl">
+            <img
+              src={`${import.meta.env.BASE_URL}logo-juntos.png`}
+              alt="Juntos somos TIS"
+              className="w-full h-auto object-contain"
+            />
+          </div>
+
+          {/* Texto institucional — alinhado à direita */}
+          <div className="flex-1 text-white text-center lg:text-right">
+            <p className="text-lg sm:text-xl xl:text-2xl font-light text-white/80 mb-2 tracking-wide">
+              Portal da Direcção de
+            </p>
+            <h1 className="text-4xl sm:text-5xl xl:text-6xl font-black text-white leading-tight mb-7 uppercase tracking-tight">
+              Cultura &amp; Pessoas
+            </h1>
+            <p className="text-base sm:text-xl text-white/75 mb-1">
+              Informação. Respostas. Recursos.
+            </p>
+            <p className="text-base sm:text-xl font-bold text-white">
+              Tudo num só lugar.
+            </p>
+          </div>
         </div>
       </section>
 
