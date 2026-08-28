@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { Lock, Mail, Eye, EyeOff, AlertCircle } from 'lucide-react';
+import MuralFotografico from '../components/MuralFotografico';
 
 export default function Login() {
   const { login, user } = useAuth();
@@ -41,8 +42,15 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-tis-950 via-tis-900 to-tis-700 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden bg-tis-950">
+
+      {/* Mural fotográfico de fundo */}
+      <MuralFotografico className="absolute inset-0 w-full h-full" />
+
+      {/* Overlay escuro com ligeiro blur — garante legibilidade do formulário */}
+      <div className="absolute inset-0 bg-tis-950/78 backdrop-blur-[0.5px]" />
+
+      <div className="relative z-10 w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <span className="text-tis-700 font-bold text-xl">TIS</span>
@@ -143,3 +151,4 @@ export default function Login() {
     </div>
   );
 }
+
