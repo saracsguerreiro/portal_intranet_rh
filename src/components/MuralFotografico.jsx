@@ -129,7 +129,6 @@ export default function MuralFotografico({ className = '', style = {} }) {
             alt=""
             draggable={false}
             loading="eager"
-            crossOrigin="anonymous"
             className="w-full h-full object-cover block select-none pointer-events-none"
           />
         </div>
