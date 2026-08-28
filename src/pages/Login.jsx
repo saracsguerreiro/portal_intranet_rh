@@ -42,113 +42,151 @@ export default function Login() {
   }
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden bg-tis-950">
+    <div className="min-h-screen flex">
 
-      {/* Mural fotográfico de fundo */}
-      <MuralFotografico className="absolute inset-0 w-full h-full" />
+      {/* ── PAINEL ESQUERDO — Mural fotográfico + identidade ─────────────── */}
+      <div className="hidden lg:flex lg:w-[62%] relative overflow-hidden flex-col">
 
-      {/* Overlay escuro com ligeiro blur — garante legibilidade do formulário */}
-      <div className="absolute inset-0 bg-tis-950/78 backdrop-blur-[0.5px]" />
+        {/* Mural animado em GSAP (substitui o people-mosaic estático) */}
+        <MuralFotografico className="absolute inset-0 w-full h-full" />
 
-      <div className="relative z-10 w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <span className="text-tis-700 font-bold text-xl">TIS</span>
-          </div>
-          <h1 className="text-white text-2xl font-bold">Portal Intranet RH</h1>
-          <p className="text-tis-300 text-sm mt-1">Acesso exclusivo a colaboradores TIS</p>
-        </div>
+        {/* Overlay escuro com gradiente para legibilidade do texto */}
+        <div className="absolute inset-0 bg-gradient-to-br from-tis-950/85 via-tis-900/70 to-tis-700/60" />
 
-        <div className="bg-white rounded-2xl shadow-2xl p-8">
-          <h2 className="text-gray-800 text-lg font-semibold mb-1">Bem-vindo/a de volta</h2>
-          <p className="text-gray-500 text-sm mb-6">Inicie sessão com as suas credenciais corporativas</p>
+        {/* Conteúdo do banner */}
+        <div className="relative z-10 flex flex-col justify-between h-full p-12">
 
-          {error && (
-            <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-4 text-sm">
-              <AlertCircle size={16} className="flex-shrink-0" />
-              {error}
+          {/* Topo — logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-md">
+              <span className="text-tis-700 font-bold text-sm">TIS</span>
             </div>
-          )}
-
-          <div className="bg-tis-50 border border-tis-200 rounded-xl px-4 py-3 mb-4 text-sm text-tis-700 text-center">
-            🚀 <strong>Modo Protótipo</strong> — clique em <em>Entrar</em> sem preencher nada
+            <span className="text-white font-semibold tracking-wide">Tecnologias de Informação</span>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email corporativo <span className="text-gray-400 font-normal">(opcional)</span>
-              </label>
-              <div className="relative">
-                <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="nome@tis.co.ao"
-                  className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tis-500 focus:border-transparent transition-all"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password <span className="text-gray-400 font-normal">(opcional)</span>
-              </label>
-              <div className="relative">
-                <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                <input
-                  type={showPass ? 'text' : 'password'}
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tis-500 focus:border-transparent transition-all"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPass(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
-                  {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
-                </button>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-tis-700 hover:bg-tis-800 disabled:bg-tis-400 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
-            >
-              {loading ? 'A entrar…' : 'Entrar →'}
-            </button>
-          </form>
-
-          <div className="mt-6 pt-6 border-t border-gray-100">
-            <p className="text-xs text-gray-500 text-center mb-3">Acesso de demonstração</p>
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { role: 'admin',    label: 'Admin RH',   color: 'bg-purple-100 text-purple-700 hover:bg-purple-200' },
-                { role: 'manager',  label: 'Responsável', color: 'bg-blue-100 text-blue-700 hover:bg-blue-200' },
-                { role: 'employee', label: 'Colaborador', color: 'bg-green-100 text-green-700 hover:bg-green-200' },
-              ].map(({ role, label, color }) => (
-                <button
-                  key={role}
-                  type="button"
-                  onClick={() => fillDemo(role)}
-                  className={`${color} text-xs font-medium py-1.5 px-2 rounded-lg transition-colors`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+          {/* Centro — slogan principal */}
+          <div>
+            <p className="text-tis-300 text-sm font-medium uppercase tracking-widest mb-4">
+              Portal Intranet · Direção de Cultura e Pessoas
+            </p>
+            <h1 className="text-white text-5xl xl:text-6xl font-bold leading-[1.1] mb-6">
+              Juntos<br />somos <span className="text-tis-300">TIS</span>
+            </h1>
+            <p className="text-tis-200 text-lg leading-relaxed max-w-sm">
+              O espaço da nossa comunidade. Partilhe momentos, colabore com colegas e cresça com a equipa.
+            </p>
           </div>
 
-          <p className="text-xs text-gray-400 text-center mt-4">
-            Ligação encriptada (HTTPS) · Sessão segura
+          {/* Rodapé do painel */}
+          <p className="text-tis-400 text-xs">
+            © {new Date().getFullYear()} TIS · Acesso exclusivo a colaboradores
           </p>
+        </div>
+      </div>
+
+      {/* ── PAINEL DIREITO — Formulário de login ──────────────────────────── */}
+      <div className="flex-1 bg-gradient-to-br from-tis-950 via-tis-900 to-tis-700 lg:bg-none lg:bg-white flex items-center justify-center p-6">
+        <div className="w-full max-w-md">
+
+          {/* Logo visível apenas em mobile (painel esquerdo fica oculto) */}
+          <div className="text-center mb-8 lg:mb-10">
+            <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-tis-700 font-bold text-xl">TIS</span>
+            </div>
+            <h1 className="text-white lg:text-gray-900 text-2xl font-bold">Portal Intranet RH</h1>
+            <p className="text-tis-300 lg:text-gray-500 text-sm mt-1">Acesso exclusivo a colaboradores TIS</p>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-2xl p-8">
+            <h2 className="text-gray-800 text-lg font-semibold mb-1">Bem-vindo/a de volta</h2>
+            <p className="text-gray-500 text-sm mb-6">Inicie sessão com as suas credenciais corporativas</p>
+
+            {error && (
+              <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-700 rounded-lg px-4 py-3 mb-4 text-sm">
+                <AlertCircle size={16} className="flex-shrink-0" />
+                {error}
+              </div>
+            )}
+
+            <div className="bg-tis-50 border border-tis-200 rounded-xl px-4 py-3 mb-4 text-sm text-tis-700 text-center">
+              🚀 <strong>Modo Protótipo</strong> — clique em <em>Entrar</em> sem preencher nada
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Email corporativo <span className="text-gray-400 font-normal">(opcional)</span>
+                </label>
+                <div className="relative">
+                  <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="nome@tis.co.ao"
+                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tis-500 focus:border-transparent transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Password <span className="text-gray-400 font-normal">(opcional)</span>
+                </label>
+                <div className="relative">
+                  <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-10 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tis-500 focus:border-transparent transition-all"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPass(v => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPass ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-tis-700 hover:bg-tis-800 disabled:bg-tis-400 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+              >
+                {loading ? 'A entrar…' : 'Entrar →'}
+              </button>
+            </form>
+
+            <div className="mt-6 pt-6 border-t border-gray-100">
+              <p className="text-xs text-gray-500 text-center mb-3">Acesso de demonstração</p>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { role: 'admin',    label: 'Admin RH',    color: 'bg-purple-100 text-purple-700 hover:bg-purple-200' },
+                  { role: 'manager',  label: 'Responsável', color: 'bg-blue-100 text-blue-700 hover:bg-blue-200' },
+                  { role: 'employee', label: 'Colaborador', color: 'bg-green-100 text-green-700 hover:bg-green-200' },
+                ].map(({ role, label, color }) => (
+                  <button
+                    key={role}
+                    type="button"
+                    onClick={() => fillDemo(role)}
+                    className={`${color} text-xs font-medium py-1.5 px-2 rounded-lg transition-colors`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-400 text-center mt-4">
+              Ligação encriptada (HTTPS) · Sessão segura
+            </p>
+          </div>
         </div>
       </div>
     </div>
   );
 }
-
