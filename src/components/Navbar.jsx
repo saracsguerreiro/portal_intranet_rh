@@ -11,7 +11,7 @@ const NAV = [
   { to: '/mural',      label: 'Mural Social', end: false },
 ];
 
-export default function Navbar({ onChatOpen }) {
+export default function Navbar() {
   const { user, logout, isAdmin, isManager } = useAuth();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen]   = useState(false);
@@ -85,12 +85,9 @@ export default function Navbar({ onChatOpen }) {
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-red-400 rounded-full" />
             </button>
 
-            {/* Botão "Falar com Agente" */}
-            <button
-              onClick={onChatOpen}
-              className="hidden sm:flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-colors"
-            >
-              Falar com Agente
+            {/* Botão "Abrir CHAT" */}
+            <button className="hidden sm:flex items-center bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-1.5 rounded-full transition-colors">
+              Abrir CHAT
             </button>
 
             {/* User dropdown */}
