@@ -106,13 +106,15 @@ export default function Dashboard() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16
                         flex flex-col lg:flex-row items-center gap-10 lg:gap-20 py-14 lg:py-24 pt-28 lg:pt-24">
 
-          {/* Logo "Juntos somos TIS" */}
-          <div className="flex-shrink-0 w-52 sm:w-64 xl:w-80 drop-shadow-2xl">
-            <img
-              src={`${import.meta.env.BASE_URL}logo-juntos.png`}
-              alt="Juntos somos TIS"
-              className="w-full h-auto object-contain"
-            />
+          {/* Agente — círculo azul com foto */}
+          <div className="flex-shrink-0 relative">
+            <div className="w-56 h-56 sm:w-64 sm:h-64 xl:w-[300px] xl:h-[300px] rounded-full border-[6px] border-blue-500 overflow-hidden shadow-2xl">
+              <img
+                src={`${import.meta.env.BASE_URL}agente.png`}
+                alt="Tânia — Agente RH"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
           </div>
 
           {/* Texto — aumentado */}
